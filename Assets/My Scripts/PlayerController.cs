@@ -12,6 +12,10 @@ Esto nos permite hacer uso de la clase Network*/
 
 public class PlayerController : NetworkBehaviour
 {
+    /*Declaramos un objeto del tipo GameObject
+    y un objeto del tipo Transform*/
+    public GameObject bulletPrefab;
+    public Transform bulletSpawn;
 
 	// Use this for initialization
 	void Start ()
@@ -44,7 +48,29 @@ public class PlayerController : NetworkBehaviour
         //método que se le pasa como parametro "Z" en el eje z para trasladar el objeto 
         transform.Translate(0, 0, z);
 
+        /*Cóndicion que indica que si se preciona,
+        la tecla de espacio ejecuta el método fire().*/
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            //Ejecuta método fire.
+            Fire();
+        }
 	}
+
+    /*Definición del método fire:
+    */
+    void Fire()
+    {
+        /*Genera la bala del prefab bullet*/
+        GameObject bullet = (GameObject)Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+
+        /*Agregar velocidad a la bala*/
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 6.0f;
+
+        /*Destruir la bala despues de 2 segundos*/
+        Destroy(bullet, 2);
+    }
+
 
     /*Utilizamos el metodo OnStartLocalPlayer() y utlizamos override para extender o modificar
     la implementación abstracta o virtual de un método, propiedad, indizador o evento heredado.*/
