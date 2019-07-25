@@ -1,8 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//Importamos la libreria Networking para poder
+//trabajar con los metodos del Administrador de Red(Networking Manager)
+using UnityEngine.Networking;
 
-public class PlayerController : MonoBehaviour
+//Aplicamos herencia sobre la clase PlayerController
+//po lo cual reemplazamos "MonoBehaviour" por "NetworkBehaviour"
+//Esto nos permitira hacer uso de la clase network
+public class PlayerController : NetworkBehaviour
 {
 
 	// Use this for initialization
@@ -14,6 +20,15 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        //Simple condición que verifica si eres el jugador local
+        //de no serlo sale inmediatamente del metodo update
+        //Por lo cual las funciones solo se aplicaran para el oojeto(jugador)
+        //que controlas.
+        if(!isLocalPlayer)
+        {
+            return;
+        }
+
         //Variable que le otorgara al jugador movilidad de rotación en el eje x con respecto
         // a las teclas de direccion derecha e izquierda
         float x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
