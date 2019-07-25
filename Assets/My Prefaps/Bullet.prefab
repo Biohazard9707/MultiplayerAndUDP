@@ -23,6 +23,9 @@ GameObject:
   - component: {fileID: 23067185710531792}
   - component: {fileID: 135490903600303834}
   - component: {fileID: 54867684773074624}
+  - component: {fileID: 114095463634506658}
+  - component: {fileID: 114482012726238898}
+  - component: {fileID: 114494533988042360}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -100,6 +103,70 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114095463634506658
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1686556002097374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 52
+    i1: 50
+    i2: 33
+    i3: 47
+    i4: 8
+    i5: 183
+    i6: 96
+    i7: 100
+    i8: 219
+    i9: 165
+    i10: 242
+    i11: 177
+    i12: 21
+    i13: 189
+    i14: 107
+    i15: 52
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114482012726238898
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1686556002097374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
+--- !u!114 &114494533988042360
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1686556002097374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3125811981a7fb40bddf7d1e1464d4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135490903600303834
 SphereCollider:
   m_ObjectHideFlags: 1

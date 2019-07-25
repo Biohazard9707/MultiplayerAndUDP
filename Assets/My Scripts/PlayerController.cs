@@ -53,19 +53,35 @@ public class PlayerController : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             //Ejecuta método fire.
-            Fire();
+            CmdFire();
         }
 	}
 
     /*Definición del método fire:
-    */
-    void Fire()
+    Para que el servidor ejecute 
+    las instrucciones de las balas
+    hay que agrgar un comando [Command]
+    y anteponer en el nombre del método
+    "Cmd" y debe ser exactamente asi,
+    para ue el script lo reconozca*/
+    [Command]
+    void CmdFire()
     {
-        /*Genera la bala del prefab bullet*/
+        /*Genera la bala del prefab bullet
+         Es este el obejeto que va a instanciar y clonar*/
         GameObject bullet = (GameObject)Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
 
-        /*Agregar velocidad a la bala*/
+        /*Agregar velocidad a la bala
+         Esta sera la posición en la que va a 
+         instanciar en ese momento la bala*/
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 6.0f;
+
+        /*Antes de destruir las balas,
+        debemos generarlas en los demas clientes
+        El servidor genera las balas
+        en los demas clientes.*/
+        NetworkServer.Spawn(bullet);
+
 
         /*Destruir la bala despues de 2 segundos*/
         Destroy(bullet, 2);
