@@ -6,6 +6,8 @@
 /[Oo]bj/
 /[Bb]uild/
 /[Bb]uilds/
+/[Bb]uilt/
+/[Bb]uilts/
 /Assets/AssetStoreTools*
 
 #Ignorar Compilaciones
