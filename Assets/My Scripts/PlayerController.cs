@@ -92,6 +92,7 @@ public class PlayerController : NetworkBehaviour
     la implementación abstracta o virtual de un método, propiedad, indizador o evento heredado.*/
     public override void OnStartLocalPlayer()
     {
+        Color newColor = new Color(0.1842f, 0.2247f, 0.5660f, 0.0196f);
         //base.OnStartLocalPlayer();
 
         /*Obtenemos el componente Material de 
@@ -99,6 +100,6 @@ public class PlayerController : NetworkBehaviour
          como cliente y le asignamos un nuevo
          color cuando lo instanciamos por
          primera vez.*/
-        GetComponent<MeshRenderer>().material.color = Color.blue;
+        GetComponent<MeshRenderer>().material.color = newColor;
     }
 }
