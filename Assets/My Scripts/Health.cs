@@ -26,6 +26,21 @@ public class Health : NetworkBehaviour
     //variable que nos permitira identificar cuando es un enemigo
     //y asi poder destruirlo
     public bool destroyOnDeath;
+    /*Declaramos un objeto del tipo StartNetworkPosition que es una matriz 
+     que almacena todos los puntos de inicio en tu juego*/
+    private NetworkStartPosition[] spawnPoints;
+
+    // Use this for initialization
+    void Start()
+    {
+        //Evaluamos primero si es un jugador local
+        if(isLocalPlayer)
+        {
+            //De serlo  localizamos los puntos de inicio con FindObjectsOfType<>
+            // Y los alamacenamos de spawnpoints
+            spawnPoints = FindObjectsOfType<NetworkStartPosition>();
+        }
+    }
 
     /*Método designado para evaluar 
      el daño ocasionado sobre el jugador
@@ -93,9 +108,23 @@ public class Health : NetworkBehaviour
         /*Verifica que la instruccion solo sea ejecuta por el cliente local*/
         if(isLocalPlayer)
         {
+            //Genera un objeto del tipo Vector3 y le asigna
+            //Una posición cero como valor inicial
+            Vector3 spawnPoint = Vector3.zero;
+
+            /*Verificamos que las posiciones iniciales no esten vacias y que sean mayor a 0*/
+            if(spawnPoints != null && spawnPoints.Length > 0 )
+            {
+                //Asignamos aleatoriamente la posición inicial del juagador en el mapa
+                spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
+            }
+
+            //Iniciamos el jugador en el punto inicial
+            transform.position = spawnPoint;
+
             /*Esta linea de código lo único que hace es resturar la posición del jugador 
              en el centro del mapa.*/
-            transform.position = Vector3.zero;
+            //transform.position = Vector3.zero;
         }
     }
 
