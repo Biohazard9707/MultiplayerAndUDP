@@ -47,7 +47,13 @@ public class Health : NetworkBehaviour
          menor o igual a 0, asignarle como nuevo valor 0*/
         if (currentHealth <= 0)
         {
-            currentHealth = 0;
+            /*Si un jugador pierde toda su salud, le asigna nuevamente
+             el valor maximo de su salud y reestablece su posicion en el juego*/
+            currentHealth = maxHealth;
+            //Método que restablece la posición del jugador
+            RpcRespawn();
+            //asignamos el valor de 0 a la barra de vida una vez que esta termina
+            //currentHealth = 0;
             //Mensaje en consola "Muerto"
             Debug.Log("Dead");
         }
@@ -64,6 +70,21 @@ public class Health : NetworkBehaviour
     void OnChangeHealth(int health)
     {
         healthBar.sizeDelta = new Vector2(health * 2, healthBar.sizeDelta.y);
+    }
+
+    /*El atributo ClientRPC permite que alguna acción que se ejecute en el servidor suceda en los 
+     * clientes para definir una llamada  RPC del cliente en el código la funcion debe de tener el atributo
+     [ClientRPC] y el nombre del método debe comenzar con Rpc*/
+    [ClientRpc]
+    void RpcRespawn()
+    {
+        /*Verifica que la instruccion solo sea ejecuta por el cliente local*/
+        if(isLocalPlayer)
+        {
+            /*Esta linea de código lo único que hace es resturar la posición del jugador 
+             en el centro del mapa.*/
+            transform.position = Vector3.zero;
+        }
     }
 
 }
