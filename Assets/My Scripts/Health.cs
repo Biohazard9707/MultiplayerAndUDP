@@ -23,6 +23,9 @@ public class Health : NetworkBehaviour
     [SyncVar (hook = "OnChangeHealth")]public int currentHealth = maxHealth;
     /*Declaramos un objeto del tipo RectTransform*/
     public RectTransform healthBar;
+    //variable que nos permitira identificar cuando es un enemigo
+    //y asi poder destruirlo
+    public bool destroyOnDeath;
 
     /*Método designado para evaluar 
      el daño ocasionado sobre el jugador
@@ -47,15 +50,24 @@ public class Health : NetworkBehaviour
          menor o igual a 0, asignarle como nuevo valor 0*/
         if (currentHealth <= 0)
         {
-            /*Si un jugador pierde toda su salud, le asigna nuevamente
-             el valor maximo de su salud y reestablece su posicion en el juego*/
-            currentHealth = maxHealth;
-            //Método que restablece la posición del jugador
-            RpcRespawn();
-            //asignamos el valor de 0 a la barra de vida una vez que esta termina
-            //currentHealth = 0;
-            //Mensaje en consola "Muerto"
-            Debug.Log("Dead");
+            //Evaluamos si el objetivo es un enemigo 
+            if(destroyOnDeath)
+            {
+                //sim es un enemigo desturye ese game object
+                Destroy(gameObject);
+            }
+            else
+            {
+                /*Si un jugador pierde toda su salud, le asigna nuevamente
+                el valor maximo de su salud y reestablece su posicion en el juego*/
+                currentHealth = maxHealth;
+                //Método que restablece la posición del jugador
+                RpcRespawn();
+                //asignamos el valor de 0 a la barra de vida una vez que esta termina
+                //currentHealth = 0;
+                //Mensaje en consola "Muerto"
+                //Debug.Log("Dead");
+            }
         }
 
         /*Cambiaremos el tamaño de la barra de vida
