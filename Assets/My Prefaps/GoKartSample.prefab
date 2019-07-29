@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114309666748216576}
   - component: {fileID: 114523118363049166}
   - component: {fileID: 54638636433894448}
+  - component: {fileID: 114653844969676932}
   m_Layer: 0
   m_Name: GoKartSample
   m_TagString: Untagged
@@ -539,7 +540,7 @@ MonoBehaviour:
     i14: 166
     i15: 19
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114523118363049166
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -551,3 +552,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d8334680db8647b33cb4947d25016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changeTexture: {fileID: 2800000, guid: 080dab19de4f54c5797e310acbeab71e, type: 3}
+--- !u!114 &114653844969676932
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1012779242751058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.033333335
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
