@@ -19,10 +19,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4800302303824226}
-  - component: {fileID: 95481050029759176}
-  - component: {fileID: 54499665136372820}
   - component: {fileID: 65315389671295892}
   - component: {fileID: 114309666748216576}
+  - component: {fileID: 114523118363049166}
+  - component: {fileID: 54638636433894448}
   m_Layer: 0
   m_Name: GoKartSample
   m_TagString: Untagged
@@ -481,7 +481,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1660003442080216}
   m_Mesh: {fileID: 4300002, guid: 10d5972a5440d489f8a54e2d7498188b, type: 3}
---- !u!54 &54499665136372820
+--- !u!54 &54638636433894448
 Rigidbody:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -508,24 +508,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.08, z: 0.13}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &95481050029759176
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1012779242751058}
-  m_Enabled: 0
-  m_Avatar: {fileID: 9000000, guid: 10d5972a5440d489f8a54e2d7498188b, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114309666748216576
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -558,3 +540,14 @@ MonoBehaviour:
     i15: 19
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114523118363049166
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1012779242751058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 302d8334680db8647b33cb4947d25016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

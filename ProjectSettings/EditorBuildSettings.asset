@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/My Scenes/Main.unity
     guid: 424a4898f6a3e1a4a8a6681bac7d7f2d
+  - enabled: 1
+    path: Assets/My Scenes/SpeedwayGoKart.unity
+    guid: 573a86622af388047b1e75b6336e33a0
   m_configObjects: {}
