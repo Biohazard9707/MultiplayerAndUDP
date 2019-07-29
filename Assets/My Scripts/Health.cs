@@ -106,21 +106,22 @@ public class Health : NetworkBehaviour
     void RpcRespawn()
     {
         /*Verifica que la instruccion solo sea ejecuta por el cliente local*/
-        if(isLocalPlayer)
+        if (isLocalPlayer)
         {
             //Genera un objeto del tipo Vector3 y le asigna
             //Una posición cero como valor inicial
             Vector3 spawnPoint = Vector3.zero;
 
             /*Verificamos que las posiciones iniciales no esten vacias y que sean mayor a 0*/
-            if(spawnPoints != null && spawnPoints.Length > 0 )
+            if (spawnPoints != null && spawnPoints.Length > 0)
             {
                 //Asignamos aleatoriamente la posición inicial del juagador en el mapa
                 spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
             }
+            NetworkServer.Spawn(gameObject);
 
             //Iniciamos el jugador en el punto inicial
-            transform.position = spawnPoint;
+            //transform.position = spawnPoint;
 
             /*Esta linea de código lo único que hace es resturar la posición del jugador 
              en el centro del mapa.*/
