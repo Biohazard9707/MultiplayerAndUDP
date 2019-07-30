@@ -21,8 +21,8 @@ public class PlayerControllerr : NetworkBehaviour {
             return;
         }
 
-        x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
-        z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
+        x = Input.GetAxis("Horizontal") * Time.deltaTime * 100.0f;
+        z = Input.GetAxis("Vertical") * Time.deltaTime * 2.5f;
 
         transform.Rotate(0, x, 0);
         transform.Translate(0, 0, z);
