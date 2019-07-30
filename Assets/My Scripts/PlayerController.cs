@@ -63,7 +63,7 @@ public class PlayerController : NetworkBehaviour
     hay que agrgar un comando [Command]
     y anteponer en el nombre del método
     "Cmd" y debe ser exactamente asi,
-    para ue el script lo reconozca*/
+    para que el script lo reconozca*/
     [Command]
     void CmdFire()
     {
