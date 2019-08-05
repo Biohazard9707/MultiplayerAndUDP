@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114523118363049166}
   - component: {fileID: 54638636433894448}
   - component: {fileID: 114653844969676932}
-  - component: {fileID: 114374052513199802}
+  - component: {fileID: 114110241918117222}
   m_Layer: 0
   m_Name: GoKartSample
   m_TagString: Respawn
@@ -535,8 +535,8 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1012779242751058}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
+  m_IsTrigger: 0
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.08, z: 0.13}
   m_Center: {x: 0, y: 0, z: 0}
@@ -552,6 +552,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.7, y: 1.61, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114110241918117222
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1012779242751058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31cf50f39c7033a4a81a03718d972bdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raceLine: {fileID: 1872929819321114, guid: f0f4b7da42261404db211e462939a812, type: 2}
+  triggerDetection: 0
 --- !u!114 &114309666748216576
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -584,17 +597,6 @@ MonoBehaviour:
     i15: 19
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
---- !u!114 &114374052513199802
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1012779242751058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bf708f1526118343af9b66eea5f76e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114523118363049166
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -118,10 +118,9 @@ public class Health : NetworkBehaviour
                 //Asignamos aleatoriamente la posición inicial del juagador en el mapa
                 spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
             }
-            NetworkServer.Spawn(gameObject);
 
             //Iniciamos el jugador en el punto inicial
-            //transform.position = spawnPoint;
+            transform.position = spawnPoint;
 
             /*Esta linea de código lo único que hace es resturar la posición del jugador 
              en el centro del mapa.*/

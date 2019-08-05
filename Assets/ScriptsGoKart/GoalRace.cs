@@ -12,7 +12,7 @@ public class GoalRace : NetworkBehaviour {
     // Use this for initialization
     void Start ()
     {
-        if(isLocalPlayer)
+        if(isServer)
         {
             spawnPoints = FindObjectsOfType<NetworkStartPosition>();
         }
@@ -26,7 +26,7 @@ public class GoalRace : NetworkBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if(!isServer)
+        if(!isLocalPlayer)
         {
             return;
         }
@@ -53,7 +53,7 @@ public class GoalRace : NetworkBehaviour {
         //Debug.Log(gameObject.name);
         //}
 
-        if (isLocalPlayer)
+        if(isServer)
         {
             int i;
             Vector3 spawnPoint = Vector3.zero;
@@ -65,10 +65,9 @@ public class GoalRace : NetworkBehaviour {
             {
                 spawnPoint = spawnPoints[i].transform.position;
                 respawns[i].transform.position = spawnPoint;
+                Debug.Log("Estamos en el ciclo " + i);
             }
         }
-
-
 
         //NetworkServer.Spawn(gameObject);
 
