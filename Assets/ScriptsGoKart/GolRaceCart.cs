@@ -20,29 +20,6 @@ public class GolRaceCart : NetworkBehaviour {
             spawnPoints = FindObjectsOfType<NetworkStartPosition>();
         }
     }
-	
-	// Update is called once per frame
-	void Update ()
-    {
-        //if (!isServer)
-        //{
-        //    return;
-        //}
-        
-        //if (goalRace)
-        //{
-        //    RpcRespawn();
-        //}
-        
-        //triggerDetection = raceLine.GetComponent<CollisionRaceLine>().champion;
-        //Debug.Log(triggerDetection);
-        //Debug.Log(raceLine.GetComponent<CollisionRaceLine>().champion);
-        //if(triggerDetection)
-        //{
-        //    raceLine.GetComponent<CollisionRaceLine>().message.text = raceLine.GetComponent<CollisionRaceLine>().message.text + "Colisiono la hja de su puta madre";
-        //    triggerDetection = false;
-        //}
-	}
 
     public void WinnerRace(bool goal, int count)
     {

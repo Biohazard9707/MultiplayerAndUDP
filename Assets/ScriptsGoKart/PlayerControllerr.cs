@@ -2,15 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using System;
+using System.Threading;
+using UnityEngine.UI;
 
 public class PlayerControllerr : NetworkBehaviour {
 
-    private float x, z;
     public Texture changeTexture;
 
+    Thread receivedThread;
+    ReceiveUDP receiveUDPObject;
+    GameObject texto;
+    int port;
+
     // Use this for initialization
-    void Start () {
-        
+    void Start() {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+        port = UnityEngine.Random.Range(11000, 12000);
+        Debug.Log(port);
+        receiveUDPObject = new ReceiveUDP(port);
+        StartReceivedThread();
     }
 	
 	// Update is called once per frame
@@ -21,17 +35,50 @@ public class PlayerControllerr : NetworkBehaviour {
             return;
         }
 
-        x = Input.GetAxis("Horizontal") * Time.deltaTime * 100.0f;
-        z = Input.GetAxis("Vertical") * Time.deltaTime * 2.5f;
-
-        transform.Rotate(0, x, 0);
-        transform.Translate(0, 0, z);
+        transform.Rotate(0, receiveUDPObject.RotateY, 0);
+        receiveUDPObject.RotateY = 0.0f;
     }
 
     public override void OnStartLocalPlayer()
     {
+
         GameObject body = transform.GetChild(4).gameObject;
         body.GetComponent<MeshRenderer>().material.mainTexture = changeTexture;
+    }
+
+   
+
+    public void OnApplicationQuit()
+    {
+        if(!isLocalPlayer)
+        {
+            return;
+        }
+        StopReceivedThread();
+    }
+
+    public void StartReceivedThread()
+    {
+        if(!isLocalPlayer)
+        {
+            return;
+        }
+        receivedThread = new Thread(receiveUDPObject.WaitingToReceiveData);
+        receivedThread.IsBackground = true;
+        receivedThread.Start();
+    }
+
+    public void StopReceivedThread()
+    {
+        if(!isLocalPlayer)
+        {
+            return;
+        }
+        receiveUDPObject.StopReceivingClient();
+        if (receivedThread.IsAlive)
+        {
+            receivedThread.Abort();
+        }
     }
 
 }
