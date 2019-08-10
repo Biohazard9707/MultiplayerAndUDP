@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class CollisionRaceLine : MonoBehaviour
 {
     public GameObject[] spawns;
+    private int[] ports = new int[] { 11000, 11100, 11200, 11300, 11400, 11500, 11600, 11700, 11800, 11900, 12000};
+    private int[] assignPort = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
     void Start()
     {
@@ -28,5 +30,20 @@ public class CollisionRaceLine : MonoBehaviour
             golRaceCartObj = spawn.GetComponent<GolRaceCart>();
             golRaceCartObj.WinnerRace(true, count);
         }
+    }
+
+    public int AssignPortMethod()
+    {
+        int newPort = 0;
+        for (int count = 0; count < assignPort.Length; count++)
+        {
+            if (assignPort[count] == 0)
+            {
+                assignPort[count] = 1;
+                newPort = ports[count];
+                break;
+            }
+        }
+        return newPort;
     }
 }

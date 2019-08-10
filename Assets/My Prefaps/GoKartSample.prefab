@@ -660,6 +660,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   changeTexture: {fileID: 2800000, guid: 080dab19de4f54c5797e310acbeab71e, type: 3}
+  startRaceLine: {fileID: 1872929819321114, guid: f0f4b7da42261404db211e462939a812,
+    type: 2}
 --- !u!114 &114653844969676932
 MonoBehaviour:
   m_ObjectHideFlags: 1

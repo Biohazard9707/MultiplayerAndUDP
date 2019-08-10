@@ -5,8 +5,7 @@ using UnityEngine.Networking;
 
 
 public class GolRaceCart : NetworkBehaviour {
-    // Use this for initialization
-    //public bool triggerDetection;
+    
     [SyncVar]public bool goalRace = false;
     private NetworkStartPosition[] spawnPoints;
 

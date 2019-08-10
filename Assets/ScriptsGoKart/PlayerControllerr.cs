@@ -13,18 +13,23 @@ public class PlayerControllerr : NetworkBehaviour {
     Thread receivedThread;
     ReceiveUDP receiveUDPObject;
     GameObject texto;
+    public GameObject startRaceLine;
+    CollisionRaceLine collisionRaceLineObject;
     int port;
 
     // Use this for initialization
     void Start() {
-        if (!isLocalPlayer)
+        //if (!isLocalPlayer)
+        //{
+        //    return;
+        //}
+        CmdAssignNewPort();
+        if (port != 0)
         {
-            return;
+            receiveUDPObject = new ReceiveUDP(port);
+            StartReceivedThread();
         }
-        port = UnityEngine.Random.Range(11000, 12000);
         Debug.Log(port);
-        receiveUDPObject = new ReceiveUDP(port);
-        StartReceivedThread();
     }
 	
 	// Update is called once per frame
@@ -34,9 +39,7 @@ public class PlayerControllerr : NetworkBehaviour {
         {
             return;
         }
-
-        transform.Rotate(0, receiveUDPObject.RotateY, 0);
-        receiveUDPObject.RotateY = 0.0f;
+        CmdMove();
     }
 
     public override void OnStartLocalPlayer()
@@ -44,6 +47,7 @@ public class PlayerControllerr : NetworkBehaviour {
 
         GameObject body = transform.GetChild(4).gameObject;
         body.GetComponent<MeshRenderer>().material.mainTexture = changeTexture;
+       
     }
 
    
@@ -79,6 +83,20 @@ public class PlayerControllerr : NetworkBehaviour {
         {
             receivedThread.Abort();
         }
+    }
+
+    [Command]
+    void CmdAssignNewPort()
+    {
+        collisionRaceLineObject = startRaceLine.GetComponent<CollisionRaceLine>();
+        port = collisionRaceLineObject.AssignPortMethod();
+    }
+
+    [Command]
+    public void CmdMove()
+    {
+        transform.Rotate(0, receiveUDPObject.RotateY, 0);
+        receiveUDPObject.RotateY = 0.0f;
     }
 
 }

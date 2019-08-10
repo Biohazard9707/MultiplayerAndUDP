@@ -8,7 +8,7 @@ using System.Text;
 
 public class ReceiveUDP
 {
-    private const int listenPort = 11000;
+    //private const int listenPort = 11000;
     private int listenPortPlayer;
     //private UdpClient receiver = new UdpClient(listenPortPlayer);
     private UdpClient receiver;

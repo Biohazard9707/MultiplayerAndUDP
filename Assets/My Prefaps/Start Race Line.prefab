@@ -172,8 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df7b7bd04becac74795bd90a8c5fe288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  champion: 0
-  message: {fileID: 114728043111106854}
+  spawns: []
 --- !u!114 &114294216738720914
 MonoBehaviour:
   m_ObjectHideFlags: 1
