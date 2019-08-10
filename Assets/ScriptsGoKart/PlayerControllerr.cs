@@ -19,11 +19,12 @@ public class PlayerControllerr : NetworkBehaviour {
 
     // Use this for initialization
     void Start() {
-        //if (!isLocalPlayer)
-        //{
-        //    return;
-        //}
-        CmdAssignNewPort();
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+        collisionRaceLineObject = startRaceLine.GetComponent<CollisionRaceLine>();
+        port = collisionRaceLineObject.AssignPortMethod();
         if (port != 0)
         {
             receiveUDPObject = new ReceiveUDP(port);
@@ -39,7 +40,8 @@ public class PlayerControllerr : NetworkBehaviour {
         {
             return;
         }
-        CmdMove();
+        transform.Rotate(0, receiveUDPObject.RotateY, 0);
+        receiveUDPObject.RotateY = 0.0f;
     }
 
     public override void OnStartLocalPlayer()
@@ -85,18 +87,9 @@ public class PlayerControllerr : NetworkBehaviour {
         }
     }
 
-    [Command]
-    void CmdAssignNewPort()
-    {
-        collisionRaceLineObject = startRaceLine.GetComponent<CollisionRaceLine>();
-        port = collisionRaceLineObject.AssignPortMethod();
-    }
-
-    [Command]
-    public void CmdMove()
-    {
-        transform.Rotate(0, receiveUDPObject.RotateY, 0);
-        receiveUDPObject.RotateY = 0.0f;
-    }
-
+    //void AssignNewPort()
+    //{
+    //    collisionRaceLineObject = startRaceLine.GetComponent<CollisionRaceLine>();
+    //    port = collisionRaceLineObject.AssignPortServer();
+    //}
 }

@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.Networking;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class CollisionRaceLine : MonoBehaviour
+public class CollisionRaceLine : NetworkBehaviour
 {
     public GameObject[] spawns;
     private int[] ports = new int[] { 11000, 11100, 11200, 11300, 11400, 11500, 11600, 11700, 11800, 11900, 12000};
     private int[] assignPort = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    //[SyncList]
 
     void Start()
     {
