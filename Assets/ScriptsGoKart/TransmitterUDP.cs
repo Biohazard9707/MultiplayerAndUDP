@@ -10,11 +10,27 @@ public class TransmitterUDP : MonoBehaviour
 {
     private bool done = false;
     private bool exception_throw = false;
+    private int talkerPortPlayer;
     private Socket sending_socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
     private static IPAddress send_to_address = IPAddress.Parse("192.168.100.4");
-    private IPEndPoint sending_end_point = new IPEndPoint(send_to_address, 13000);
+    private IPEndPoint sending_end_point;
 
-    public void SendData()
+
+    public TransmitterUDP(int port)
+    {
+        talkerPortPlayer = port;
+        sending_end_point = new IPEndPoint(send_to_address, talkerPortPlayer);
+    }
+    
+    public bool Done
+    {
+        set
+        {
+            done = true;
+        }
+    }
+
+    public void WaitingToTransmitterData()
     {
         System.Random rdn = new System.Random();
         int minNumber = 1;
@@ -52,5 +68,11 @@ public class TransmitterUDP : MonoBehaviour
                 Debug.Log("La excepción indica que el mensaje no fue enviado.");
             }
         }
+    }
+
+    public void StopTransmitterClient()
+    {
+        done = true;
+        //sending_socket.Close();
     }
 }

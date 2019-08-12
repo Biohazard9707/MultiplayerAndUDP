@@ -7,8 +7,10 @@ using UnityEngine.UI;
 public class CollisionRaceLine : NetworkBehaviour
 {
     public GameObject[] spawns;
-    private int[] ports = new int[] { 11000, 11100, 11200, 11300, 11400, 11500, 11600, 11700, 11800, 11900, 12000};
+    private int[] ports = new int[] { 11000, 11100, 11200, 11300, 11400, 11500, 11600, 11700, 11800, 11900 };
     private int[] assignPort = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    private int[] portsTransmitter = new int[] { 12100, 12200, 12300, 12400, 12500, 12600, 12700, 12800, 12900, 13000 };
+    private int[] assignPortTransmitter = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     //[SyncList]
 
     void Start()
@@ -46,5 +48,20 @@ public class CollisionRaceLine : NetworkBehaviour
             }
         }
         return newPort;
+    }
+
+    public int AssignPortTransmitterMethod()
+    {
+        int newPortTransmiter = 0;
+        for (int count = 0; count < assignPortTransmitter.Length; count++)
+        {
+            if (assignPortTransmitter[count] == 0)
+            {
+                assignPortTransmitter[count] = 1;
+                newPortTransmiter = portsTransmitter[count];
+                break;
+            }
+        }
+        return newPortTransmiter;
     }
 }
