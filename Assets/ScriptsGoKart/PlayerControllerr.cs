@@ -11,6 +11,7 @@ public class PlayerControllerr : NetworkBehaviour {
     public Texture changeTexture;
 
     Thread receivedThread;
+    Thread receivedThread2;
     //Code Trasnmitter
     Thread transmitterThread;
     ReceiveUDP receiveUDPObject;
@@ -40,16 +41,20 @@ public class PlayerControllerr : NetworkBehaviour {
     //    }
     //    Debug.Log(port);
     //}
-	
-	// Update is called once per frame
-	void Update () {
+
+
+    // Update is called once per frame
+    void Update () {
 
         if(!isLocalPlayer)
         {
             return;
         }
-        transform.Rotate(0, receiveUDPObject.RotateY, 0);
+        transform.Rotate(0.0f, receiveUDPObject.RotateY, 0.0f);
+        transform.Translate(0.0f, 0.0f, receiveUDPObject.TranslateX);
         receiveUDPObject.RotateY = 0.0f;
+        receiveUDPObject.TranslateX = 0.0f;
+        transmitterUDPObject.WaitingToTransmitterData(2.5f, 5.5f);
     }
 
     public override void OnStartLocalPlayer()
@@ -58,19 +63,18 @@ public class PlayerControllerr : NetworkBehaviour {
         GameObject body = transform.GetChild(4).gameObject;
         body.GetComponent<MeshRenderer>().material.mainTexture = changeTexture;
         collisionRaceLineObject = startRaceLine.GetComponent<CollisionRaceLine>();
-        port = collisionRaceLineObject.AssignPortMethod();
-        portTransmitter = collisionRaceLineObject.AssignPortTransmitterMethod();
+        port = startRaceLine.GetComponent<CollisionRaceLine>().AssignPortMethod();
+        portTransmitter = startRaceLine.GetComponent<CollisionRaceLine>().AssignPortTransmitterMethod();
         if (port != 0)
         {
             receiveUDPObject = new ReceiveUDP(port);
-            StartReceivedThread();
+            //StartReceivedThread();
         }
         //Code transmiter
-        if (portTransmitter != 0 )
+        if (portTransmitter != 0)
         {
             transmitterUDPObject = new TransmitterUDP(portTransmitter);
-            StartTransmitterThread();
-
+            //StartTransmitterThread();
         }
         Debug.Log(port);
         //Code Transmitter
@@ -84,7 +88,7 @@ public class PlayerControllerr : NetworkBehaviour {
             return;
         }
         StopReceivedThread();
-        StopTransmitterThread();
+        //StopTransmitterThread();
     }
 
     public void StartReceivedThread()
@@ -93,22 +97,35 @@ public class PlayerControllerr : NetworkBehaviour {
         {
             return;
         }
-        receivedThread = new Thread(receiveUDPObject.WaitingToReceiveData);
-        receivedThread.IsBackground = true;
-        receivedThread.Start();
+        if (port == 11000)
+        {
+            receivedThread = new Thread(receiveUDPObject.WaitingToReceiveData);
+            receivedThread.IsBackground = true;
+            receivedThread.Start();
+        }
+        else
+        {
+            if(port == 11100)
+            {
+                receivedThread2 = new Thread(receiveUDPObject.WaitingToReceiveData);
+                receivedThread2.IsBackground = true;
+                receivedThread2.Start();
+            }
+        }
+        
     }
 
     //Code tranmitter
-    public void StartTransmitterThread()
-    {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
-        transmitterThread = new Thread(transmitterUDPObject.WaitingToTransmitterData);
-        transmitterThread.IsBackground = true;
-        transmitterThread.Start();
-    }
+    //public void StartTransmitterThread()
+    //{
+    //    if (!isLocalPlayer)
+    //    {
+    //        return;
+    //    }
+    //    transmitterThread = new Thread(transmitterUDPObject.WaitingToTransmitterData);
+    //    transmitterThread.IsBackground = true;
+    //    transmitterThread.Start();
+    //}
 
     public void StopReceivedThread()
     {
@@ -116,24 +133,38 @@ public class PlayerControllerr : NetworkBehaviour {
         {
             return;
         }
-        receiveUDPObject.StopReceivingClient();
-        if (receivedThread.IsAlive)
+        if(port == 11000)
         {
-            receivedThread.Abort();
+            receiveUDPObject.StopReceivingClient();
+            if (receivedThread.IsAlive)
+            {
+                receivedThread.Abort();
+            }
+        }
+        else
+        {
+            if(port == 11100)
+            {
+                receiveUDPObject.StopReceivingClient();
+                if(receivedThread2.IsAlive)
+                {
+                    receivedThread2.Abort();
+                }
+            }
         }
     }
 
     //Code transmitter
-    public void StopTransmitterThread()
-    {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
-        transmitterUDPObject.StopTransmitterClient();
-        if(transmitterThread.IsAlive)
-        {
-            transmitterThread.Abort();
-        }
-    }
+    //public void StopTransmitterThread()
+    //{
+    //    if (!isLocalPlayer)
+    //    {
+    //        return;
+    //    }
+    //    transmitterUDPObject.StopTransmitterClient();
+    //    if(transmitterThread.IsAlive)
+    //    {
+    //        transmitterThread.Abort();
+    //    }
+    //}
 }

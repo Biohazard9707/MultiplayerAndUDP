@@ -8,18 +8,26 @@ public class CollisionRaceLine : NetworkBehaviour
 {
     public GameObject[] spawns;
     private int[] ports = new int[] { 11000, 11100, 11200, 11300, 11400, 11500, 11600, 11700, 11800, 11900 };
-    private int[] assignPort = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    public int[] assignPort = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; 
     private int[] portsTransmitter = new int[] { 12100, 12200, 12300, 12400, 12500, 12600, 12700, 12800, 12900, 13000 };
-    private int[] assignPortTransmitter = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    //[SyncList]
+    public int[] assignPortTransmitter = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    
+//[SyncList]
 
-    void Start()
+void Start()
     {
+
         spawns = null;
+        //assignPort = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        //assignPortTransmitter = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if(!isServer)
+        {
+            return;
+        }
         GolRaceCart golRaceCartObj;
 
         if(spawns == null)
@@ -37,9 +45,13 @@ public class CollisionRaceLine : NetworkBehaviour
 
     public int AssignPortMethod()
     {
+
         int newPort = 0;
+        Debug.Log(newPort);
         for (int count = 0; count < assignPort.Length; count++)
         {
+            Debug.Log(count);
+            Debug.Log(assignPort[count]);
             if (assignPort[count] == 0)
             {
                 assignPort[count] = 1;

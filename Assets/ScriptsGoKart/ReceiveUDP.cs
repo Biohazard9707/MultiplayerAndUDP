@@ -5,6 +5,7 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Linq;
 
 public class ReceiveUDP
 {
@@ -15,8 +16,9 @@ public class ReceiveUDP
     //private IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Any, listenPortPlayer);
     private IPEndPoint ipEndPoint;
     private bool done = false;
-    private string mess;
+    //private string mess;
     private float rotateY;
+    private float translateX;
 
     public ReceiveUDP(int port)
     {
@@ -38,6 +40,19 @@ public class ReceiveUDP
         }
     }
 
+    public float TranslateX
+    {
+        get
+        {
+            return translateX;
+        }
+
+        set
+        {
+            translateX = 0;
+        }
+    }
+
     public int ListenPortPlayer
     {
         set
@@ -48,7 +63,7 @@ public class ReceiveUDP
 
     public void WaitingToReceiveData()
     {
-        string receivedData;
+        //string receivedData;
         Byte[] receiveByteArray;
         try
         {
@@ -58,10 +73,15 @@ public class ReceiveUDP
                 receiveByteArray = receiver.Receive(ref ipEndPoint);
                 if(receiveByteArray != null)
                 {
-                    receivedData = Encoding.ASCII.GetString(receiveByteArray, 0, receiveByteArray.Length);
-                    rotateY = float.Parse(receivedData);
-                    mess = receivedData;
-                    Debug.Log(mess);
+                    //receivedData = Encoding.ASCII.GetString(receiveByteArray, 0, receiveByteArray.Length);
+                    int[] bytesToInt = receiveByteArray.Select(x => (int)x).ToArray();
+                    rotateY = bytesToInt[0];
+                    translateX = bytesToInt[1];
+                    Debug.Log(bytesToInt);
+                    Debug.Log(bytesToInt[0]);
+                    //rotateY = float.Parse(receivedData);
+                    //mess = receivedData;
+                    //Debug.Log(mess);
                 } 
             }
         }
