@@ -13,25 +13,25 @@ public class PlayerControllerr : NetworkBehaviour {
     Thread receivedThread;
     Thread receivedThread2;
     //Code Trasnmitter
-    Thread transmitterThread;
+    //Thread transmitterThread;
     ReceiveUDP receiveUDPObject;
     //Code Transmitter
     TransmitterUDP transmitterUDPObject;
-    GameObject texto;
-    public GameObject startRaceLine;
-    CollisionRaceLine collisionRaceLineObject;
+    //GameObject texto;
+    public GameObject portGameObject;
+    //CollisionRaceLine collisionRaceLineObject;
 
-    int port;
+    [SyncVar]int port = 0;
 
     //Code transmitter
-    int portTransmitter;
+    [SyncVar]int portTransmitter = 0;
 
     // Use this for initialization
     //void Start() {
     //    if (!isLocalPlayer)
     //    {
     //        return;
-    //    }
+    //    } 
     //    collisionRaceLineObject = startRaceLine.GetComponent<CollisionRaceLine>();
     //    port = collisionRaceLineObject.AssignPortMethod();
     //    if (port != 0)
@@ -55,6 +55,14 @@ public class PlayerControllerr : NetworkBehaviour {
         receiveUDPObject.RotateY = 0.0f;
         receiveUDPObject.TranslateX = 0.0f;
         transmitterUDPObject.WaitingToTransmitterData(2.5f, 5.5f);
+
+
+        //Prueba
+        //float x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
+        //float z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
+
+        //transform.Rotate(0, x, 0);
+        //transform.Translate(0, 0, z);
     }
 
     public override void OnStartLocalPlayer()
@@ -62,20 +70,24 @@ public class PlayerControllerr : NetworkBehaviour {
         //Change texture gameobject
         GameObject body = transform.GetChild(4).gameObject;
         body.GetComponent<MeshRenderer>().material.mainTexture = changeTexture;
-        collisionRaceLineObject = startRaceLine.GetComponent<CollisionRaceLine>();
-        port = startRaceLine.GetComponent<CollisionRaceLine>().AssignPortMethod();
-        portTransmitter = startRaceLine.GetComponent<CollisionRaceLine>().AssignPortTransmitterMethod();
+        AssignPortClass assignPortClassObject = GameObject.FindGameObjectWithTag("ports").GetComponent<AssignPortClass>();
+        portTransmitter = assignPortClassObject.AssignPortTransmitterMethod();
+        port = assignPortClassObject.AssignPortMethod();
         if (port != 0)
         {
+            //Debug.Log("olo");
             receiveUDPObject = new ReceiveUDP(port);
-            //StartReceivedThread();
+            StartReceivedThread();
         }
+
         //Code transmiter
         if (portTransmitter != 0)
         {
+            //Debug.Log("olo");
             transmitterUDPObject = new TransmitterUDP(portTransmitter);
             //StartTransmitterThread();
         }
+
         Debug.Log(port);
         //Code Transmitter
         Debug.Log(portTransmitter);
@@ -152,6 +164,11 @@ public class PlayerControllerr : NetworkBehaviour {
                 }
             }
         }
+    }
+
+    public override void OnStopAuthority()
+    {
+        Debug.Log("Se detuvo esta madre");
     }
 
     //Code transmitter

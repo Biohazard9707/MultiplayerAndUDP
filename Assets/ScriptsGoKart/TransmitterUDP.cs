@@ -13,7 +13,8 @@ public class TransmitterUDP
     private bool exception_throw = false;
     private int talkerPortPlayer;
     private Socket sending_socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-    private static IPAddress send_to_address = IPAddress.Parse("192.168.100.235");
+    private static IPAddress send_to_address = IPAddress.Parse("192.168.100.4");
+    //198.168.100.235
     private IPEndPoint sending_end_point;
 
 
