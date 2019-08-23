@@ -89,6 +89,30 @@ public class AssignPortClass : NetworkBehaviour {
         }
         return newPortTransmiter;
     }
+
+    public void QuitAssignPortReceiverMethod(int quitPort)
+    {
+        for (int count = 0; count < portsReceiver.Length; count++)
+        {
+            if (portsReceiver[count] == quitPort)
+            {
+                syncListPortObjectReceiver[count] = 0;
+                break;
+            }
+        }
+    }
+
+    public void QuitAssignPortTransmitterMethod(int quitPortTransmitter)
+    {
+        for(int count = 0; count < portsTransmitter.Length; count++)
+        {
+            if (portsTransmitter[count] == quitPortTransmitter)
+            {
+                syncListPortObjectTransmitter[count] = 0;
+                break;
+            }
+        }
+    }
     
     public void StartPorts()
     {

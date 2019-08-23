@@ -20,6 +20,7 @@ public class PlayerControllerr : NetworkBehaviour {
     //GameObject texto;
     public GameObject portGameObject;
     //CollisionRaceLine collisionRaceLineObject;
+    AssignPortClass assignPortClassObject;
 
     [SyncVar]int port = 0;
 
@@ -50,6 +51,7 @@ public class PlayerControllerr : NetworkBehaviour {
         {
             return;
         }
+
         transform.Rotate(0.0f, receiveUDPObject.RotateY, 0.0f);
         transform.Translate(0.0f, 0.0f, receiveUDPObject.TranslateX);
         receiveUDPObject.RotateY = 0.0f;
@@ -70,7 +72,7 @@ public class PlayerControllerr : NetworkBehaviour {
         //Change texture gameobject
         GameObject body = transform.GetChild(4).gameObject;
         body.GetComponent<MeshRenderer>().material.mainTexture = changeTexture;
-        AssignPortClass assignPortClassObject = GameObject.FindGameObjectWithTag("ports").GetComponent<AssignPortClass>();
+        assignPortClassObject = GameObject.FindGameObjectWithTag("ports").GetComponent<AssignPortClass>();
         portTransmitter = assignPortClassObject.AssignPortTransmitterMethod();
         port = assignPortClassObject.AssignPortMethod();
         if (port != 0)
@@ -95,12 +97,14 @@ public class PlayerControllerr : NetworkBehaviour {
 
     public void OnApplicationQuit()
     {
-        if(!isLocalPlayer)
+        if (!isLocalPlayer)
         {
             return;
         }
         StopReceivedThread();
-        //StopTransmitterThread();
+        assignPortClassObject = GameObject.FindGameObjectWithTag("ports").GetComponent<AssignPortClass>();
+        assignPortClassObject.QuitAssignPortReceiverMethod(port);
+        assignPortClassObject.QuitAssignPortTransmitterMethod(portTransmitter);
     }
 
     public void StartReceivedThread()
@@ -166,11 +170,6 @@ public class PlayerControllerr : NetworkBehaviour {
         }
     }
 
-    public override void OnStopAuthority()
-    {
-        Debug.Log("Se detuvo esta madre");
-    }
-
     //Code transmitter
     //public void StopTransmitterThread()
     //{
@@ -184,4 +183,15 @@ public class PlayerControllerr : NetworkBehaviour {
     //        transmitterThread.Abort();
     //    }
     //}
+
+    void OnDestroy()
+    {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+        StopReceivedThread();
+        assignPortClassObject.QuitAssignPortReceiverMethod(port);
+        assignPortClassObject.QuitAssignPortTransmitterMethod(portTransmitter);
+    }
 }
